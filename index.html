@@ -1,0 +1,50 @@
+<!doctype html>
+<script>
+    function getweather(){
+        var city = document.getElementById("search").value;
+        var units = document.getElementById("units").value;
+
+        fetch("http://api.weatherstack.com/current?access_key=7022cbedefa8740257e4371f3e4a696b&query="+city+"&units="+units)
+        .then(a => a.json())
+        .then(response => {
+            document.getElementById("image").src=response.current.weather_icons[0];
+            document.getElementById("output").innerHTML="<h1>"+response.current.weather_descriptions[0]+"</h1><br>Temperature: "
+            +response.current.temperature+"<br>Feels like: "
+            +response.current.feelslike+"<br>UV index: "
+            +response.current.uv_index+"<br>Humidity: "
+            +response.current.humidity+"<br>Cloud cover: "
+            +response.current.cloudcover;
+
+        });
+    }
+</script>
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" constant="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>AEVO TI</title>
+
+</head>
+<body>
+
+<header>
+    <h1>Get weather!</h1>
+</header>
+
+<div id="main">
+    <input placeholder="Busque a cidade..." id="search" />
+    <select id="units">
+        <option value="m">Celcius</option>
+        <option value="f">Fahrenheit</option>
+    </select>
+    <button onclick="getweather()">Buscar</button><br>
+    <br><img id ="image" style="border-radius:10px;" />
+    <div id="output"></div>
+</div>        
+
+</body>
+</html>
